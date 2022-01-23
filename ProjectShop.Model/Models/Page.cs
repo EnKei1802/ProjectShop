@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace ProjectShop.Model.Models
 {
     [Table("Pages")]
-    public class Pages:Auditable
+    public class Page:Auditable
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

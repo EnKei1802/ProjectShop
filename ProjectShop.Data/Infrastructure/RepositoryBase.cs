@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProjectShop.Data.Infrastructure
 {
-    public class RepositoryBase<T> where T : class
+    public class RepositoryBase<T> : IRepository<T> where T : class
     {
         #region Properties
         private ProjectShopDbContext dataContext;
@@ -133,6 +133,11 @@ namespace ProjectShop.Data.Infrastructure
         public bool CheckContains(Expression<Func<T,bool>> predicate)
         {
             return dataContext.Set<T>().Count<T>(predicate) > 0;
+        }
+
+        public T GetSingleByCondition(Expression<Func<T, bool>> expression, string[] includes = null)
+        {
+            return GetAll(includes).FirstOrDefault(expression);
         }
         #endregion
     }

@@ -11,10 +11,13 @@ namespace ProjectShop.Data
 {
     public class ProjectShopDbContext : DbContext
     {
-        public ProjectShopDbContext():base("connectionStrings")
+        public ProjectShopDbContext():base("ProjectShopConnection")
         {
             this.Configuration.LazyLoadingEnabled = false;
         }
+
+
+
 
         public DbSet<Footer>  Footers { get; set; }
         public DbSet<Menu> Menus { get; set; }

@@ -23,7 +23,7 @@ namespace ProjectShop.Data
         public DbSet<Menu> Menus { get; set; }
         public DbSet<MenuGroup> MenuGroups { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderDetaild>OrderDetailds { get; set; }
+        public DbSet<OrderDetail>OrderDetails { get; set; }
         public DbSet<Page> Pages { get; set; }
         public DbSet<Post> Posts    { get; set; }
         public DbSet<PostCategory> PostCategories { get; set; }

@@ -37,6 +37,6 @@ namespace ProjectShop.Model.Models
         public string CreatedBy { get; set; }
         public string PaymentStatus { get; set; }
         public bool Status { get; set; }
-        public virtual IEnumerable<OrderDetaild> OrderDetailds { get; set; }
+        public virtual IEnumerable<OrderDetail> OrderDetails { get; set; }
     }
 }

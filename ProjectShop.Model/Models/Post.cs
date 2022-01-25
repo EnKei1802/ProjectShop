@@ -32,7 +32,10 @@ namespace ProjectShop.Model.Models
         public int? HomneFlag { get; set; }
         public int? HotFlag { get; set; }
         public int? ViewCount { get; set; }
+
         [ForeignKey("CategoryID")]
         public virtual PostCategory PostCategory { get; set; }
+
+        public virtual IEnumerable<PostTag> PostTags { set; get; }
     }
 }

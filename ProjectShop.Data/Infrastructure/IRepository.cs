@@ -17,6 +17,8 @@ namespace ProjectShop.Data.Infrastructure
         //Marks an entity to be removed
         void Delete(T entity);
 
+        void Delete(int id);
+
         //Delete multi records
         void DeleteMulti(Expression<Func<T, bool>> where);
 

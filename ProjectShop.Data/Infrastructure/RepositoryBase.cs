@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectShop.Data.Infrastructure
 {
@@ -44,6 +42,12 @@ namespace ProjectShop.Data.Infrastructure
         public virtual void Delete(T Entity)
         {
             dbSet.Remove(Entity);
+        }
+
+        public void Delete(int id)
+        {
+            var entity = dbSet.Find(id);
+            dbSet.Remove(entity);
         }
 
         public virtual void DeleteMulti(Expression<Func<T, bool>> where)
@@ -139,6 +143,8 @@ namespace ProjectShop.Data.Infrastructure
         {
             return GetAll(includes).FirstOrDefault(expression);
         }
+
+        
         #endregion
     }
 }

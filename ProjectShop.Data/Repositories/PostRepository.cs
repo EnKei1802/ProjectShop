@@ -1,10 +1,7 @@
 ﻿using ProjectShop.Data.Infrastructure;
 using ProjectShop.Model.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectShop.Data.Repositories
 {
@@ -16,6 +13,7 @@ namespace ProjectShop.Data.Repositories
     {
 
         public PostRepository(DbFactory dbFactory) : base(dbFactory) { }
+        
 
         public IEnumerable<Post> GetAllByTag(string tag, int pageIndex, int pageSize, out int totalRow)
         {

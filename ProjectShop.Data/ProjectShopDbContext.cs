@@ -1,11 +1,5 @@
 ﻿using ProjectShop.Model.Models;
-using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectShop.Data
 {
@@ -14,6 +8,7 @@ namespace ProjectShop.Data
         public ProjectShopDbContext():base("ProjectShopConnection")
         {
             this.Configuration.LazyLoadingEnabled = false;
+            //var ensureDLLIsCopied = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
         }
 
 

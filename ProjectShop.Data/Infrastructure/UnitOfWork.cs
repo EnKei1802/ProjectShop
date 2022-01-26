@@ -19,7 +19,7 @@ namespace ProjectShop.Data.Infrastructure
         public ProjectShopDbContext DbContext { get { return dbContext ?? (dbContext = dbFactory.Init()); } }
         public void Commit()
         {
-            dbContext.SaveChanges();
+            DbContext.SaveChanges();
         }
     }
 }

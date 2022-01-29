@@ -14,33 +14,34 @@ namespace ProjectShop.Web.Api
     {
 
         IPostCategoryService _postCategoryService;
-        public PostCategoryController(IErrorService errorService,IPostCategoryService postCategoryService):base(errorService)
+        public PostCategoryController(IErrorService errorService, IPostCategoryService postCategoryService) : base(errorService)
         {
             this._postCategoryService = postCategoryService;
         }
-        
 
-        public HttpResponseMessage Post(HttpRequestMessage request,PostCategory postCategory)
+
+        public HttpResponseMessage Post(HttpRequestMessage request, PostCategory postCategory)
         {
-            return CreateHttpResponse(request, () =>{
+            return CreateHttpResponse(request, () =>
+            {
 
                 HttpResponseMessage response = null;
-                if(ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
-                    request.CreateErrorResponse(HttpStatusCode.BadRequest,ModelState);
+                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
                 else
                 {
                     var category = _postCategoryService.Add(postCategory);
                     _postCategoryService.Save();
 
-                    response = request.CreateResponse(HttpStatusCode.Created,category);
+                    response = request.CreateResponse(HttpStatusCode.Created, category);
                 }
                 return response;
             });
         }
 
-        public HttpResponseMessage Put(HttpRequestMessage request,PostCategory category)
+        public HttpResponseMessage Put(HttpRequestMessage request, PostCategory category)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -62,21 +63,15 @@ namespace ProjectShop.Web.Api
 
 
         [Route("getall")]
-        public HttpResponseMessage Get(HttpRequestMessage request, PostCategory category)
+        public HttpResponseMessage Get(HttpRequestMessage request)
         {
             return CreateHttpResponse(request, () =>
             {
-                HttpResponseMessage response = null;
-                if (ModelState.IsValid)
-                {
-                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                }
-                else
-                {
-                   var listcategory =  _postCategoryService.GetAll();
 
-                    response = request.CreateResponse(HttpStatusCode.OK,listcategory);
-                }
+                var listcategory = _postCategoryService.GetAll();
+
+                HttpResponseMessage response = request.CreateResponse(HttpStatusCode.OK, listcategory);
+
                 return response;
             });
         }

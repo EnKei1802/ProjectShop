@@ -1,10 +1,13 @@
-﻿using ProjectShop.Model.Models;
+﻿using AutoMapper;
+using ProjectShop.Model.Models;
 using ProjectShop.Service;
 using ProjectShop.Web.Infrastructure.Core;
+using ProjectShop.Web.Models;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using ProjectShop.Web.Infrastructure.Extensions;
 
 namespace ProjectShop.Web.Api
 {
@@ -20,7 +23,8 @@ namespace ProjectShop.Web.Api
         }
 
 
-        public HttpResponseMessage Post(HttpRequestMessage request, PostCategory postCategory)
+        [Route("add")]
+        public HttpResponseMessage Post(HttpRequestMessage request, PostCategoryViewModel postCategoryVm)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -32,7 +36,10 @@ namespace ProjectShop.Web.Api
                 }
                 else
                 {
-                    var category = _postCategoryService.Add(postCategory);
+
+                    PostCategory newPostCategory = new PostCategory();
+                    newPostCategory.UpdatePostCategory(postCategoryVm);
+                    var category = _postCategoryService.Add(newPostCategory);
                     _postCategoryService.Save();
 
                     response = request.CreateResponse(HttpStatusCode.Created, category);
@@ -41,7 +48,8 @@ namespace ProjectShop.Web.Api
             });
         }
 
-        public HttpResponseMessage Put(HttpRequestMessage request, PostCategory category)
+        [Route("update")]
+        public HttpResponseMessage Put(HttpRequestMessage request, PostCategoryViewModel categoryVM)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -52,7 +60,9 @@ namespace ProjectShop.Web.Api
                 }
                 else
                 {
-                    _postCategoryService.Update(category);
+                    var postCategoryDb = _postCategoryService.GetById(categoryVM.ID);
+                    postCategoryDb.UpdatePostCategory(categoryVM);
+                    _postCategoryService.Update(postCategoryDb);
                     _postCategoryService.Save();
 
                     response = request.CreateResponse(HttpStatusCode.OK);
@@ -68,9 +78,18 @@ namespace ProjectShop.Web.Api
             return CreateHttpResponse(request, () =>
             {
 
-                var listcategory = _postCategoryService.GetAll();
+                var listCategory = _postCategoryService.GetAll();
 
-                HttpResponseMessage response = request.CreateResponse(HttpStatusCode.OK, listcategory);
+                var config = new MapperConfiguration(cfg => {
+                    cfg.CreateMap<PostCategory, PostCategoryViewModel>();
+                });
+
+                IMapper mapper = config.CreateMapper();
+
+
+                var listPostCategoryVM = mapper.Map<List<PostCategoryViewModel>>(listCategory);
+
+                HttpResponseMessage response = request.CreateResponse(HttpStatusCode.OK, listPostCategoryVM);
 
                 return response;
             });
